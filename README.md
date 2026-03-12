@@ -16,6 +16,12 @@ Terraform · Azure · Azure Firewall · Private DNS · Azure Policy · Defender 
 - GitLab CI pipeline with Terraform plan/apply and OPA policy gates
 - Cost tagging enforcement and budget alerts at subscription level
 
+## Project structure
+
+- `modules/hub` — Hub VNet, Azure Firewall, FQDN application rules
+- `modules/spoke` — Spoke VNet, subnets, route table (default via firewall)
+- `examples/main` — Example: hub + 3 spokes (prod, dev, shared) with VNet peering
+
 ## Metrics
 
 - Hub-and-Spoke across 3 regions
