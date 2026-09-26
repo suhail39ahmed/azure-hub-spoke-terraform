@@ -56,7 +56,7 @@ resource "azurerm_firewall" "hub" {
   name                = "${var.prefix}-hub-fw"
   location            = azurerm_resource_group.hub.location
   resource_group_name = azurerm_resource_group.hub.name
-  sku_name            = "AZFW_Hub"
+  sku_name            = "AZFW_VNet"
   sku_tier            = "Standard"
 
   ip_configuration {
