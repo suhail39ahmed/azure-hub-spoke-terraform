@@ -1,34 +1,42 @@
-# Azure Hub-and-Spoke Terraform
+# Azure Hub-and-Spoke Terraform (starter)
 
-**Enterprise-grade network architecture with security guardrails**
+Starter Terraform modules for a basic Azure **hub-and-spoke** network layout, plus a small example wiring them together.
 
-Production-ready Terraform modules for deploying Azure Hub-and-Spoke network topology with centralized security controls, firewall policies, private endpoints, and automated compliance guardrails using Azure Policy and Defender for Cloud.
+This is a **learning / foundation** repo — not a full enterprise landing zone.
 
-## Tech
+## What's in the repo
 
-Terraform · Azure · Azure Firewall · Private DNS · Azure Policy · Defender for Cloud · GitLab CI
+```
+modules/hub/      # hub VNet-oriented module
+modules/spoke/    # spoke VNet-oriented module
+examples/main/    # example that wires hub + spoke
+```
 
-## Highlights
+## What this is not
 
-- Centralized egress through Azure Firewall with FQDN-based policy
-- Private endpoints for all PaaS services — no public internet exposure
-- Automated Azure Policy assignments for CIS benchmark compliance
-- GitLab CI pipeline with Terraform plan/apply and OPA policy gates
-- Cost tagging enforcement and budget alerts at subscription level
+The earlier marketing README over-claimed. This repository does **not** currently include:
 
-## Project structure
+- 50+ Azure Policy assignments
+- Multi-region production topology with published uptime targets
+- Private endpoint packs, GitLab CI, or OPA gates as maintained code in-tree
 
-- `modules/hub` — Hub VNet, Azure Firewall, FQDN application rules
-- `modules/spoke` — Spoke VNet, subnets, route table (default via firewall)
-- `examples/main` — Example: hub + 3 spokes (prod, dev, shared) with VNet peering
+If you need those, add them deliberately — don't invent metrics.
 
-## Metrics
+## Usage
 
-- Hub-and-Spoke across 3 regions
-- 50+ policy assignments
-- Zero trust enforcement
-- 99.99% network uptime
+```bash
+cd examples/main
+terraform init
+terraform plan
+```
+
+Review `modules/hub` and `modules/spoke` before applying. Treat this as a template to extend for your subscription, naming, and security standards.
+
+## Known limitations
+
+- Keep Azure Firewall SKU / hub vs VNet Firewall subnet choices aligned with current `azurerm` provider docs before apply — older samples sometimes mix hub firewall SKUs with classic `AzureFirewallSubnet` layouts.
+- No automated `terraform validate` CI is attached yet; run `terraform fmt` / `terraform validate` locally.
 
 ## License
 
-MIT
+Use at your own risk in non-production first. No warranty.
